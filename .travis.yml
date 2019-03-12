@@ -13,6 +13,8 @@ script:
   - env GO111MODULE=on go build
 before_deploy:
   - go run main.go
+  - cp README.md docker
+  - cp LICENSE docker
 deploy:
   provider: pages
   skip-cleanup: true
