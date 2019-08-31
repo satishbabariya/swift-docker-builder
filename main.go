@@ -39,7 +39,7 @@ func main() {
 	// Query Parameters for Tags API
 	listOptions := &github.ListOptions{
 		Page:    1,
-		PerPage: 2,
+		PerPage: 3,
 	}
 
 	// Get All Tags for Swift Repository
@@ -52,7 +52,7 @@ func main() {
 	for _, element := range tags {
 
 		// Check if tag name is not type-name-lookup-fail, for some reason api responds with this as first element
-		if *element.Name != "type-name-lookup-fail" && strings.Contains(*element.Name, "DEVELOPMENT") {
+		if strings.Contains(*element.Name, "DEVELOPMENT") {
 
 			// Set Swift Version
 			os.Setenv("SWIFT_VERSION", *element.Name)
