@@ -39,7 +39,7 @@ func main() {
 	// Query Parameters for Tags API
 	listOptions := &github.ListOptions{
 		Page:    1,
-		PerPage: 3,
+		PerPage: 5,
 	}
 
 	// Get All Tags for Swift Repository
