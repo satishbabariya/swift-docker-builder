@@ -20,37 +20,38 @@ func main() {
 	}
 
 	// Check if GITHUBTOKEN is present in env
-	token := os.Getenv("GITHUBTOKEN")
-	if token == "" {
-		log.Fatalf("No github token found")
-	}
+	// token := os.Getenv("GITHUBTOKEN")
+	// if token == "" {
+	// 	log.Fatalf("No github token found")
+	// }
 
 	//Background Context
 	ctx := context.Background()
 
-	tokenSource := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: token},
-	)
-	tc := oauth2.NewClient(ctx, tokenSource)
+	// tokenSource := oauth2.StaticTokenSource(
+	// 	&oauth2.Token{AccessToken: token},
+	// )
+	tc := oauth2.NewClient(ctx, nil)
 
 	// Github Client
 	client := github.NewClient(tc)
 
 	// Query Parameters for Tags API
+
 	listOptions := &github.ListOptions{
 		Page:    1,
-		PerPage: 5,
+		PerPage: 1,
 	}
 
 	// Get All Tags for Swift Repository
-	tags, _, err := client.Repositories.ListTags(ctx, "apple", "swift", listOptions)
+	tags, _, err := client.Repositories.ListTags(ctx, "apple", "sourcekit-lsp", listOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Loop through all tags.
 	for _, element := range tags {
-
+		log.Println(*element.Name)
 		// Check if tag name is not type-name-lookup-fail, for some reason api responds with this as first element
 		if strings.Contains(*element.Name, "DEVELOPMENT") {
 
